@@ -1,0 +1,76 @@
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
+// Define the structure for an Item record 
+struct Item { 
+string code; 
+string name; 
+double cost; 
+int quantity; 
+}; 
+// Function to print an item 
+void printItem(const Item& item) { 
+cout << "Item Code: " << item.code  
+<< ", Name: " << item.name  
+<< ", Cost: " << item.cost  
+<< ", Quantity: " << item.quantity << endl; 
+} 
+// Comparison function for sorting 
+bool compareByCost(const Item& a, const Item& b) { 
+return a.cost < b.cost; 
+} 
+// Main function 
+int main() { 
+    vector<Item> items; 
+    int n; 
+ 
+    // Input items from the user 
+    cout << "Enter the number of items: "; 
+    cin >> n; 
+    cin.ignore(); // Clear the input buffer 
+ 
+    for (int i = 0; i < n; ++i) { 
+        Item item; 
+        cout << "Enter item code: "; 
+        getline(cin, item.code); 
+        cout << "Enter item name: "; 
+        getline(cin, item.name); 
+        cout << "Enter item cost: "; 
+        cin >> item.cost; 
+        cout << "Enter item quantity: "; 
+        cin >> item.quantity; 
+        cin.ignore(); // Clear the input buffer 
+        items.push_back(item); 
+    } 
+ 
+    // Sort items by cost using the comparison function 
+    sort(items.begin(), items.end(), compareByCost); 
+ 
+    // Print sorted items 
+    cout << "\nSorted Items by Cost:\n"; 
+    for (const auto& item : items) { 
+        printItem(item); 
+    } 
+ 
+    // Search for an item by code 
+    string searchCode; 
+    cout << "\nEnter item code to search: "; 
+    getline(cin, searchCode); 
+    bool found = false; 
+ 
+    for (const auto& item : items) { 
+        if (item.code == searchCode) { 
+            cout << "Item found:\n"; 
+            printItem(item); 
+            found = true; 
+            break; 
+        } 
+    } 
+ 
+    if (!found) { 
+        cout << "Item not found.\n"; 
+    } 
+ 
+    return 0; 
+} 

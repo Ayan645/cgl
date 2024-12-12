@@ -1,0 +1,33 @@
+/*
+Write a program in C++ to use map associative container.The keys will be the names of the states and the values will be the population of the states.
+When the program runs, the user is prompted to type the name of the state. The program then looks in the map, using the state name as an index and return 
+the population of the state.
+*/
+
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+
+int main(){
+    map<string, int>populationMap={
+        {"Maharashtra", 87348786787}, 
+        {"Kerala", 13254346},
+        {"Andhra Pradesh", 97248768},
+        {"Jammu", 23465736}
+    };
+    cout<<"========Population of States in India========";
+    cout<<"\n Size of map is:"<<populationMap.size()<<endl;
+    
+    string state_name;
+    cout<<"\n Enter the name of the state:";
+    getline(cin, state_name);
+    
+    auto it=populationMap.find(state_name);
+    if(it!=populationMap.end()){
+        cout<<state_name<<"'s population is: "<<it->second<<endl;
+    }else{
+        cout<<"\n Stae not found in the population map"<<endl;
+    }
+    return 0;
+}

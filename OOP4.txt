@@ -1,0 +1,33 @@
+#include <iostream> 
+#include <fstream> 
+ 
+using namespace std; 
+ 
+int main()  
+{ 
+    // Step 1: Create an output file and write information to it 
+    ofstream outf("example.txt"); 
+    if (!outf)  
+    { 
+        cerr << "Error opening file for writing!" << endl; 
+        return 1; 
+    } 
+    outf << "Hello, World!" << endl; 
+    outf << "This is a simple file I/O example in C++." << endl; 
+    outf << "Goodbye!" << endl; 
+    outf.close(); // Close the output file 
+    // Step 2: Open the file again as an input file and read the information 
+    ifstream inf("example.txt"); 
+    if (!inf)  
+    { 
+        cerr << "Error opening file for reading!" << endl; 
+        return 1; 
+    } 
+    char line[256]; // Character array to hold each line 
+    while (inf.getline(line, sizeof(line)))  
+    { 
+        cout << line << endl; // Output each line read from the file 
+} 
+inf.close(); // Close the input file 
+return 0; 
+}

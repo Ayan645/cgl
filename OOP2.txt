@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <stdexcept>
+using namespace std;
+
+class student {
+    string name;
+    int roll;
+    int className; // Renamed from 'class'
+    char divi;
+    string dob;
+    string blood;
+    string address;
+    string telephone;
+    string dvlicense;
+
+public:
+    // Default constructor
+    student() : name(""), roll(0), className(0), divi(' '), dob(""), blood(""), address(""), telephone(""), dvlicense("") {}
+
+    // Parameterized constructor
+    student(string n, int r, int c, char d, string dob, string bg, string add, string tele, string dl)
+        : name(n), roll(r), className(c), divi(d), dob(dob), blood(bg), address(add), telephone(tele), dvlicense(dl) {}
+
+    // Copy constructor
+    student(const student &s) {
+        name = s.name;
+        roll = s.roll;
+        className = s.className;
+        divi = s.divi;
+        dob = s.dob;
+        blood = s.blood;
+        address = s.address;
+        telephone = s.telephone;
+        dvlicense = s.dvlicense;
+    }
+
+    // Destructor
+    ~student() {}
+
+    static void printWelcomeMsg() {
+        cout << "Welcome to the Student Information System!" << endl;
+    }
+
+    void displayInfo() const {
+        cout << "Name: " << name << endl;
+        cout << "Roll no: " << roll << endl;
+        cout << "Class Name: " << className << endl;
+        cout << "Division: " << divi << endl;
+        cout << "Date of Birth: " << dob << endl;
+        cout << "Blood Group: " << blood << endl;
+        cout << "Telephone Number: " << telephone << endl;
+        cout << "Driving License Number: " << dvlicense << endl;
+    }
+
+    friend void updateStudentInfo(student &s, const string &newName);
+};
+
+// Friend function to update student info
+void updateStudentInfo(student &s, const string &newName) {
+    s.name = newName;
+}
+
+int main() {
+    student::printWelcomeMsg();
+
+    try {
+        // Dynamic memory allocation
+        student *student1 = new student("John Doe", 1, 10, 'A', "01/05/2005", "O+ve", "123 Elm Street", "123-456-7890", "D123456");
+        student1->displayInfo();
+
+        // Update student info using friend function
+        updateStudentInfo(*student1, "Jane Doe");
+        cout << "\nAfter update:\n";
+        student1->displayInfo();
+
+        delete student1;
+    } catch (const std::exception &e) {
+        cerr << "An error occurred: " << e.what() << endl;
+    }
+
+    return 0;
+}
